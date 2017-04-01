@@ -17,7 +17,6 @@ public class HuffmanTree {
             Node newNode = new Node( -1, left.freq + right.freq, left, right );
             pq.add(newNode);
         }
-        
         root = pq.peek();
     }
     

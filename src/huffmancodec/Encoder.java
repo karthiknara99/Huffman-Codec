@@ -21,21 +21,21 @@ public class Encoder {
     
     static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
     static HashMap<Integer,String> code_table = new LinkedHashMap<>();
-    static SampleQueue sq;
+    static BinaryHeapPriorityQueue sq;
     static HuffmanTree ht;
     
     public static void main(String[] args) throws IOException {
         
-        buildFrequencyTable();
+        buildFrequencyTable( args[0] );
         buildHuffmanTree();
         generateCodeTable();
-        encode();
+        encode( args[0] );
     }
     
-    public static void buildFrequencyTable() throws IOException {
+    public static void buildFrequencyTable( String fileName ) throws IOException {
         
         //Read input file and generate frequency table
-        try( BufferedReader br = new BufferedReader( new FileReader( "sample_input_large.txt" ) ) )
+        try( BufferedReader br = new BufferedReader( new FileReader( fileName ) ) )
         {
             String line;
             int value;
@@ -60,7 +60,7 @@ public class Encoder {
     public static void buildHuffmanTree() {
         
         //Create priority queue
-        sq = new SampleQueue();
+        sq = new BinaryHeapPriorityQueue();
         Iterator it = freq_table.entrySet().iterator();
         while( it.hasNext() )
         {
@@ -85,7 +85,7 @@ public class Encoder {
         if( ptr == null )
             return;
         
-        if( ptr.data != -1 )
+        if( ptr.data > -1 )
         {
             code_table.put( ptr.data , sb.toString() );
             return;
@@ -97,7 +97,7 @@ public class Encoder {
         sb.deleteCharAt( sb.length() - 1 );
     }
     
-    public static void encode() throws IOException {
+    public static void encode( String fileName ) throws IOException {
         
         //Read input file, encode data and write to binary file
         File f1 = new File( "encoded.bin" );
@@ -106,7 +106,7 @@ public class Encoder {
         f1.createNewFile();
         
         try( 
-            BufferedReader br = new BufferedReader( new FileReader( "sample_input_large.txt" ) );
+            BufferedReader br = new BufferedReader( new FileReader( fileName ) );
             FileOutputStream fos = new FileOutputStream( "encoded.bin" )
         )
         {
