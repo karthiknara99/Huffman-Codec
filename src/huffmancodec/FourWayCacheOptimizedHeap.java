@@ -1,32 +1,28 @@
 package huffmancodec;
 
-import java.util.PriorityQueue;
-
 /**
  *
  * @author karthik
  */
-public class SampleQueue implements MyPriorityQueue {
-    
-    PriorityQueue<Node> pq = new PriorityQueue<>();
-    
+public class FourWayCacheOptimizedHeap implements MyPriorityQueue {
+
     @Override
     public void add( Node newNode ) {
-        pq.add(newNode);
+        
     }
     
     @Override
     public Node extractMin() {
-        return pq.poll();
+        return null;
     }
     
     @Override
     public int size() {
-        return pq.size();
+        return 0;
     }
     
     @Override
     public Node peek() {
-        return pq.peek();
+        return null;
     }
 }

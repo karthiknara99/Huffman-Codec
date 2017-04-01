@@ -11,6 +11,35 @@ public class BinaryHeapPriorityQueue implements MyPriorityQueue {
     private static int heapSize = -1;
     private static ArrayList<Node> ar = new ArrayList<>();
     
+    @Override
+    public void add( Node newNode ) {
+        
+        ar.add(newNode);
+        heapSize++;
+        bubbleUp( heapSize );
+    }
+    
+    @Override
+    public Node extractMin() {
+        
+        Node temp = ar.get(0);
+        ar.set( 0, ar.get(heapSize) );
+        ar.remove(heapSize);
+        heapSize--;
+        bubbleDown( 0 );
+        return temp;
+    }
+    
+    @Override
+    public int size() {
+        return ( heapSize + 1 );
+    }
+    
+    @Override
+    public Node peek() {
+        return ar.get(0);
+    }
+    
     public static int parent( int i ) {
         return i/2;
     }
@@ -53,34 +82,5 @@ public class BinaryHeapPriorityQueue implements MyPriorityQueue {
         ar.set( p, ar.get(i) );
         ar.set( i, parent );
         bubbleUp(p);
-    }
-    
-    @Override
-    public void add( Node newNode ) {
-        
-        ar.add(newNode);
-        heapSize++;
-        bubbleUp( heapSize );
-    }
-    
-    @Override
-    public Node extractMin() {
-        
-        Node temp = ar.get(0);
-        ar.set( 0, ar.get(heapSize) );
-        ar.remove(heapSize);
-        heapSize--;
-        bubbleDown( 0 );
-        return temp;
-    }
-    
-    @Override
-    public int size() {
-        return ( heapSize + 1 );
-    }
-    
-    @Override
-    public Node peek() {
-        return ar.get(0);
     }
 }

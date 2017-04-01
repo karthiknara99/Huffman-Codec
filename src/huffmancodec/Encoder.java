@@ -19,12 +19,24 @@ import java.util.Map;
  */
 public class Encoder {
     
-    static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
-    static HashMap<Integer,String> code_table = new LinkedHashMap<>();
-    static BinaryHeapPriorityQueue sq;
-    static HuffmanTree ht;
+    private static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
+    private static HashMap<Integer,String> code_table = new LinkedHashMap<>();
+    private static BinaryHeapPriorityQueue sq;
+    private static HuffmanTree ht;
     
     public static void main(String[] args) throws IOException {
+        
+        try {
+            File f1 = new File( args[0] );
+            if( !f1.exists() )
+            {
+                System.out.println( args[0] + " not found!!");
+                return;
+            }
+        }
+        catch( ArrayIndexOutOfBoundsException e ) {
+            System.out.println("Command line arguments not proper!!");
+        }
         
         buildFrequencyTable( args[0] );
         buildHuffmanTree();
@@ -41,10 +53,10 @@ public class Encoder {
             int value;
             while ( ( line = br.readLine() ) != null )
             {
-                try{
+                try {
                     value = Integer.parseInt(line);
                 }
-                catch( NumberFormatException e ){
+                catch( NumberFormatException e ) {
                     continue;
                 }
                 
@@ -85,7 +97,7 @@ public class Encoder {
         if( ptr == null )
             return;
         
-        if( ptr.data > -1 )
+        if( ptr.left == null && ptr.right == null )
         {
             code_table.put( ptr.data , sb.toString() );
             return;
@@ -115,25 +127,25 @@ public class Encoder {
             int value;
             while ( ( line = br.readLine() ) != null )
             {
-                try{
+                try {
                     value = Integer.parseInt(line);
                     sb.append( code_table.get(value) );
                 }
-                catch( NumberFormatException e ){
+                catch( NumberFormatException e ) {
                     //Do nothing
                 }
             }
             br.close();
             
-            BitSet bitSet = new BitSet( sb.length() );
+            BitSet bs = new BitSet( sb.length() );
             int bitcounter = 0;
             for( int i = 0; i < sb.length(); i++ )
             {
                 if( sb.charAt(i) == '1' )
-                    bitSet.set(bitcounter);
+                    bs.set(bitcounter);
                 bitcounter++;
             }
-            byte[] buffer = bitSet.toByteArray();
+            byte[] buffer = bs.toByteArray();
             fos.write(buffer);
             fos.close();
         }
