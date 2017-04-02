@@ -1,6 +1,7 @@
 package huffmancodec;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -21,10 +22,12 @@ public class Encoder {
     
     private static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
     private static HashMap<Integer,String> code_table = new LinkedHashMap<>();
-    private static BinaryHeapPriorityQueue sq;
+    private static FourWayCacheOptimizedHeap sq;
     private static HuffmanTree ht;
     
     public static void main(String[] args) throws IOException {
+        
+        long a = System.currentTimeMillis();
         
         try {
             File f1 = new File( args[0] );
@@ -42,6 +45,9 @@ public class Encoder {
         buildHuffmanTree();
         generateCodeTable();
         encode( args[0] );
+        
+        long b = System.currentTimeMillis();
+        System.out.println( (b-a)/1000 );
     }
     
     public static void buildFrequencyTable( String fileName ) throws IOException {
@@ -72,7 +78,7 @@ public class Encoder {
     public static void buildHuffmanTree() {
         
         //Create priority queue
-        sq = new BinaryHeapPriorityQueue();
+        sq = new FourWayCacheOptimizedHeap();
         Iterator it = freq_table.entrySet().iterator();
         while( it.hasNext() )
         {
@@ -155,7 +161,7 @@ public class Encoder {
         if (f1.exists())
             f1.delete();
         
-        try( PrintWriter out = new PrintWriter( new FileWriter("code_table.txt", true) ) )
+        try( PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter("code_table.txt", true) ) ) )
         {
             Iterator it = code_table.entrySet().iterator();
             while( it.hasNext() )

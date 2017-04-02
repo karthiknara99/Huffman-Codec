@@ -1,6 +1,7 @@
 package huffmancodec;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -19,6 +20,8 @@ public class Decoder {
     private static Node root;
     
     public static void main(String[] args) throws IOException {
+   
+        long a = System.currentTimeMillis();
         
         try {
             File f1 = new File( args[0] );
@@ -41,6 +44,9 @@ public class Decoder {
         root = buildDecodeTree( args[1] );
         encodedString = getEncodedString( args[0] );
         decode( root, encodedString );
+        
+        long b = System.currentTimeMillis();
+        System.out.println( (b-a)/1000 );
     }
     
     public static Node buildDecodeTree( String fileName ) throws IOException {
@@ -105,7 +111,7 @@ public class Decoder {
             byte buffer[] = new byte[ (int)f1.length() ];
             fis.read(buffer);
             BitSet bs = BitSet.valueOf(buffer);
-            for( int i = 0; i <= bs.length(); i++ )
+            for( int i = 0; i <= buffer.length * 8; i++ )
             {
                 if( bs.get(i) )
                     sb.append('1');
@@ -126,7 +132,7 @@ public class Decoder {
             f1.delete();
         
         Node ptr = root;
-        try( PrintWriter out = new PrintWriter( new FileWriter("decoded.txt", true) ) )
+        try( PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter("decoded.txt", true) ) ) )
         {
             for( int i = 0; i < encodedString.length(); i++ )
             {

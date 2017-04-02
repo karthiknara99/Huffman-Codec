@@ -6,4 +6,5 @@ package huffmancodec;
  */
 public class HuffmanCodec {
     
+    //See files encoder.java and decoder.java
 }

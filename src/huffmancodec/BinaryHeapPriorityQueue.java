@@ -41,33 +41,33 @@ public class BinaryHeapPriorityQueue implements MyPriorityQueue {
     }
     
     public static int parent( int i ) {
-        return i/2;
+        return (i-1)/2;
     }
     
     public static int left( int i ) {
-        return 2*i;
-    }
-    
-    public static int right( int i ) {
         return (2*i)+1;
     }
     
-    public static void bubbleDown( int i ) {
+    public static int right( int i ) {
+        return (2*i)+2;
+    }
+    
+    public static void bubbleDown( int p ) {
         
         int smallest;
         Node temp;
-        int l = left(i);
-        int r = right(i);
-        if( l <= heapSize && ( ar.get(l).freq < ar.get(i).freq ) )
+        int l = left(p);
+        int r = right(p);
+        if( l <= heapSize && ( ar.get(l).freq < ar.get(p).freq ) )
             smallest = l;
         else
-            smallest = i;
+            smallest = p;
         if( r <= heapSize && ( ar.get(r).freq < ar.get(smallest).freq ) )
             smallest = r;
-        if( smallest != i )
+        if( smallest != p )
         {
-            temp = ar.get(i);
-            ar.set( i, ar.get(smallest) );
+            temp = ar.get(p);
+            ar.set( p, ar.get(smallest) );
             ar.set( smallest, temp );
             bubbleDown( smallest );
         }
