@@ -22,12 +22,10 @@ public class Encoder {
     
     private static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
     private static HashMap<Integer,String> code_table = new LinkedHashMap<>();
-    private static FourWayCacheOptimizedHeap sq;
+    private static CacheOptimizedFourWayHeapPQ pq;
     private static HuffmanTree ht;
     
     public static void main(String[] args) throws IOException {
-        
-        long a = System.currentTimeMillis();
         
         try {
             File f1 = new File( args[0] );
@@ -45,9 +43,6 @@ public class Encoder {
         buildHuffmanTree();
         generateCodeTable();
         encode( args[0] );
-        
-        long b = System.currentTimeMillis();
-        System.out.println( (b-a)/1000 );
     }
     
     public static void buildFrequencyTable( String fileName ) throws IOException {
@@ -77,18 +72,18 @@ public class Encoder {
     
     public static void buildHuffmanTree() {
         
-        //Create priority queue
-        sq = new FourWayCacheOptimizedHeap();
+        //Build Priority Queue
+        pq = new CacheOptimizedFourWayHeapPQ();
         Iterator it = freq_table.entrySet().iterator();
         while( it.hasNext() )
         {
             Map.Entry me = (Map.Entry) it.next();
             Node newNode = new Node( (int) me.getKey(), (int) me.getValue(), null, null );
-            sq.add(newNode);
+            pq.add(newNode);
         }
-        
+
         //Build Huffman Tree
-        ht = new HuffmanTree(sq);
+        ht = new HuffmanTree(pq);
     }
     
     public static void generateCodeTable() {

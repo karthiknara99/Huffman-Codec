@@ -20,8 +20,6 @@ public class Decoder {
     private static Node root;
     
     public static void main(String[] args) throws IOException {
-   
-        long a = System.currentTimeMillis();
         
         try {
             File f1 = new File( args[0] );
@@ -44,9 +42,6 @@ public class Decoder {
         root = buildDecodeTree( args[1] );
         encodedString = getEncodedString( args[0] );
         decode( root, encodedString );
-        
-        long b = System.currentTimeMillis();
-        System.out.println( (b-a)/1000 );
     }
     
     public static Node buildDecodeTree( String fileName ) throws IOException {

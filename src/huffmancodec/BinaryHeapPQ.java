@@ -6,33 +6,38 @@ import java.util.ArrayList;
  *
  * @author karthik
  */
-public class BinaryHeapPriorityQueue implements MyPriorityQueue {
+public class BinaryHeapPQ implements MyPriorityQueue {
     
-    private static int heapSize = -1;
     private static ArrayList<Node> ar = new ArrayList<>();
+
+    public BinaryHeapPQ() {
+        this.clear();
+    }
     
     @Override
     public void add( Node newNode ) {
         
         ar.add(newNode);
-        heapSize++;
-        bubbleUp( heapSize );
+        bubbleUp( ar.size()-1 );
+    }
+    
+    public void clear() {
+        ar.clear();
     }
     
     @Override
     public Node extractMin() {
         
         Node temp = ar.get(0);
-        ar.set( 0, ar.get(heapSize) );
-        ar.remove(heapSize);
-        heapSize--;
+        ar.set( 0, ar.get( ar.size()-1 ) );
+        ar.remove( ar.size()-1 );
         bubbleDown( 0 );
         return temp;
     }
     
     @Override
     public int size() {
-        return ( heapSize + 1 );
+        return ar.size();
     }
     
     @Override
@@ -58,11 +63,11 @@ public class BinaryHeapPriorityQueue implements MyPriorityQueue {
         Node temp;
         int l = left(p);
         int r = right(p);
-        if( l <= heapSize && ( ar.get(l).freq < ar.get(p).freq ) )
+        if( l < ar.size() && ( ar.get(l).freq < ar.get(p).freq ) )
             smallest = l;
         else
             smallest = p;
-        if( r <= heapSize && ( ar.get(r).freq < ar.get(smallest).freq ) )
+        if( r < ar.size() && ( ar.get(r).freq < ar.get(smallest).freq ) )
             smallest = r;
         if( smallest != p )
         {

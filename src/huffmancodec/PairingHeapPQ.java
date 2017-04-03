@@ -4,7 +4,7 @@ package huffmancodec;
  *
  * @author karthik
  */
-public class PairingHeapPriorityQueue implements MyPriorityQueue {
+public class PairingHeapPQ implements MyPriorityQueue {
     
     @Override
     public void add( Node newNode ) {
