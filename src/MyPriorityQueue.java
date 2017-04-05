@@ -1,5 +1,3 @@
-package huffmancodec;
-
 /**
  *
  * @author karthik

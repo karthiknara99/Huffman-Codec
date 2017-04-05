@@ -1,5 +1,3 @@
-package huffmancodec;
-
 import java.util.PriorityQueue;
 
 /**

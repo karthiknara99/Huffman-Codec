@@ -1,5 +1,3 @@
-package huffmancodec;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +12,7 @@ import java.util.BitSet;
  *
  * @author karthik
  */
-public class Decoder {
+public class decoder {
     
     private static String encodedString;
     private static Node root;

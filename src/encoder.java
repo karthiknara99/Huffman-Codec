@@ -1,5 +1,3 @@
-package huffmancodec;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,7 +16,7 @@ import java.util.Map;
  *
  * @author karthik
  */
-public class Encoder {
+public class encoder {
     
     private static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
     private static HashMap<Integer,String> code_table = new LinkedHashMap<>();
