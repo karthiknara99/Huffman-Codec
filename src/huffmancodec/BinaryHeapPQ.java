@@ -28,6 +28,8 @@ public class BinaryHeapPQ implements MyPriorityQueue {
     @Override
     public Node extractMin() {
         
+        if( ar.size() < 1 )
+            return null;
         Node temp = ar.get(0);
         ar.set( 0, ar.get( ar.size()-1 ) );
         ar.remove( ar.size()-1 );

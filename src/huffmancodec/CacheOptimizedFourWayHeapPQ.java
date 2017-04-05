@@ -22,6 +22,7 @@ public class CacheOptimizedFourWayHeapPQ implements MyPriorityQueue {
     }
     
     public void clear() {
+        
         ar.clear();
         ar.add(null);
         ar.add(null);
@@ -30,7 +31,9 @@ public class CacheOptimizedFourWayHeapPQ implements MyPriorityQueue {
     
     @Override
     public Node extractMin() {
-        
+     
+        if( ar.size() < 1 )
+            return null;
         Node temp = ar.get(3);
         ar.set( 3, ar.get( ar.size()-1 ) );
         ar.remove( ar.size()-1 );
@@ -52,30 +55,18 @@ public class CacheOptimizedFourWayHeapPQ implements MyPriorityQueue {
         return ((i-4)/4)+3;
     }
     
-    public static int child1( int i ) {
-        return 4*(i-3)+4;
-    }
-    
-    public static int child2( int i ) {
-        return 4*(i-3)+5;
-    }
-    
-    public static int child3( int i ) {
-        return 4*(i-3)+6;
-    }
-    
-    public static int child4( int i ) {
-        return 4*(i-3)+7;
+    public static int child( int i, int c ) {
+        return (4*(i-3))+c+3;
     }
     
     public static void bubbleDown( int p ) {
         
         int smallest;
         Node temp;
-        int c1 = child1(p);
-        int c2 = child2(p);
-        int c3 = child3(p);
-        int c4 = child4(p);
+        int c1 = child(p,1);
+        int c2 = child(p,2);
+        int c3 = child(p,3);
+        int c4 = child(p,4);
         
         if( c1 < ar.size() && ( ar.get(c1).freq < ar.get(p).freq ) )
             smallest = c1;

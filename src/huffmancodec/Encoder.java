@@ -72,6 +72,67 @@ public class Encoder {
     
     public static void buildHuffmanTree() {
         
+        /*
+        //Testing
+        BinaryHeapPQ pq1;
+        CacheOptimizedFourWayHeapPQ pq2;
+        PairingHeapPQ pq3;
+        int num_it = 10;
+        long a = System.currentTimeMillis();
+        for( int i = 0; i < num_it; i++ )
+        {
+            pq1 = new BinaryHeapPQ();
+            Iterator it = freq_table.entrySet().iterator();
+            while( it.hasNext() )
+            {
+                Map.Entry me = (Map.Entry) it.next();
+                Node newNode = new Node( (int) me.getKey(), (int) me.getValue(), null, null );
+                pq1.add(newNode);
+            }
+
+            //Build Huffman Tree
+            ht = new HuffmanTree(pq1);
+        }
+        long b = System.currentTimeMillis();
+        System.out.println( "Binary Heap: " + (b-a)/(float)(num_it*1000) + " s" );
+        
+        a = System.currentTimeMillis();
+        for( int i = 0; i < num_it; i++ )
+        {
+            pq2 = new CacheOptimizedFourWayHeapPQ();
+            Iterator it = freq_table.entrySet().iterator();
+            while( it.hasNext() )
+            {
+                Map.Entry me = (Map.Entry) it.next();
+                Node newNode = new Node( (int) me.getKey(), (int) me.getValue(), null, null );
+                pq2.add(newNode);
+            }
+
+            //Build Huffman Tree
+            ht = new HuffmanTree(pq2);
+        }
+        b = System.currentTimeMillis();
+        System.out.println( "4-ary Heap: " + (b-a)/(float)(num_it*1000) + " s" );
+        
+        a = System.currentTimeMillis();
+        for( int i = 0; i < num_it; i++ )
+        {
+            pq3 = new PairingHeapPQ();
+            Iterator it = freq_table.entrySet().iterator();
+            while( it.hasNext() )
+            {
+                Map.Entry me = (Map.Entry) it.next();
+                Node newNode = new Node( (int) me.getKey(), (int) me.getValue(), null, null );
+                pq3.add(newNode);
+            }
+
+            //Build Huffman Tree
+            ht = new HuffmanTree(pq3);
+        }
+        b = System.currentTimeMillis();
+        System.out.println( "Pairing Heap: " + (b-a)/(float)(num_it*1000) + " s" );
+        */
+        
         //Build Priority Queue
         pq = new CacheOptimizedFourWayHeapPQ();
         Iterator it = freq_table.entrySet().iterator();
