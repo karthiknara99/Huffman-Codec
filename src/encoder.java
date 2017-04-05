@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author karthik
  */
-public class Encoder {
+public class encoder {
     
     private static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
     private static HashMap<Integer,String> code_table = new LinkedHashMap<>();
@@ -179,17 +179,25 @@ public class Encoder {
         
         try( 
             BufferedReader br = new BufferedReader( new FileReader( fileName ) );
-            FileOutputStream fos = new FileOutputStream( "encoded.bin" )
+            FileOutputStream fos = new FileOutputStream( "encoded.bin", true )
         )
         {
-            StringBuilder sb = new StringBuilder("");
             String line;
             int value;
+            BitSet bs = new BitSet();
+            int bitCount = 0;
+            
             while ( ( line = br.readLine() ) != null )
             {
                 try {
                     value = Integer.parseInt(line);
-                    sb.append( code_table.get(value) );
+                    line = code_table.get(value);
+                    for( int i = 0; i < line.length(); i++ )
+                    {
+                        if( line.charAt(i) == '1' )
+                            bs.set(bitCount);
+                        bitCount++;
+                    }
                 }
                 catch( NumberFormatException e ) {
                     //Do nothing
@@ -197,14 +205,6 @@ public class Encoder {
             }
             br.close();
             
-            BitSet bs = new BitSet( sb.length() );
-            int bitcounter = 0;
-            for( int i = 0; i < sb.length(); i++ )
-            {
-                if( sb.charAt(i) == '1' )
-                    bs.set(bitcounter);
-                bitcounter++;
-            }
             byte[] buffer = bs.toByteArray();
             fos.write(buffer);
             fos.close();
@@ -214,6 +214,7 @@ public class Encoder {
         f1 = new File( "code_table.txt" );
         if (f1.exists())
             f1.delete();
+        f1.createNewFile();
         
         try( PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter("code_table.txt", true) ) ) )
         {

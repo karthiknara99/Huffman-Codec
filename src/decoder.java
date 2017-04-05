@@ -12,9 +12,8 @@ import java.util.BitSet;
  *
  * @author karthik
  */
-public class Decoder {
+public class decoder {
     
-    private static String encodedString;
     private static Node root;
     
     public static void main(String[] args) throws IOException {
@@ -38,8 +37,7 @@ public class Decoder {
         }
         
         root = buildDecodeTree( args[1] );
-        encodedString = getEncodedString( args[0] );
-        decode( root, encodedString );
+        decode( root, args[0] );
     }
     
     public static Node buildDecodeTree( String fileName ) throws IOException {
@@ -94,56 +92,46 @@ public class Decoder {
         return root;
     }
     
-    public static String getEncodedString( String fileName ) throws IOException {
+    public static void decode( Node root, String fileName ) throws IOException {
         
-        //Read encoded file
-        File f1 = new File( fileName );
-        StringBuilder sb = new StringBuilder("");
-        try( FileInputStream fis = new FileInputStream( fileName ) )
-        {
-            byte buffer[] = new byte[ (int)f1.length() ];
-            fis.read(buffer);
-            BitSet bs = BitSet.valueOf(buffer);
-            for( int i = 0; i <= buffer.length * 8; i++ )
-            {
-                if( bs.get(i) )
-                    sb.append('1');
-                else
-                    sb.append('0');
-            }
-            fis.close();
-        }
-        
-        return sb.toString();
-    }
-    
-    public static void decode( Node root, String encodedString ) throws IOException {
-       
         //Write decoded file
         File f1 = new File( "decoded.txt" );
         if (f1.exists())
             f1.delete();
+        f1.createNewFile();
         
+        //Read encoded file
+        f1 = new File( fileName );
+        byte buffer[] = new byte[ (int)f1.length() ];
+        try( FileInputStream fis = new FileInputStream( fileName ) )
+        {
+            fis.read(buffer);
+            fis.close();
+        }
+        
+        BitSet bs = BitSet.valueOf(buffer);
+        char c;
         Node ptr = root;
+        
         try( PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter("decoded.txt", true) ) ) )
         {
-            for( int i = 0; i < encodedString.length(); i++ )
+            for( int i = 0; i < buffer.length * 8; i++ )
             {
                 if( ptr.left == null && ptr.right == null )
                 {
                     out.println( ptr.data );
                     ptr = root;
                 }
-                switch( encodedString.charAt(i) )
+             
+                c = ( bs.get(i) == true ) ? '1' : '0';
+                
+                switch( c )
                 {
-                    case '0':
-                        ptr = ptr.left;
-                        break;
-                    case '1':
-                        ptr = ptr.right;
-                        break;
+                    case '0':   ptr = ptr.left;     break;
+                    case '1':   ptr = ptr.right;    break;
                 }
             }
+            
             if( ptr.left == null && ptr.right == null )
                 out.println( ptr.data );
             
