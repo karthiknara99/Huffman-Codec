@@ -9,9 +9,7 @@ import java.util.Queue;
 class PairNode {
     
     Node data;
-    PairNode leftChild;
-    PairNode nextSibling;
-    PairNode prevSibling;
+    PairNode leftChild, nextSibling, prevSibling;
     
     public PairNode( Node data ) {
         
@@ -93,6 +91,7 @@ public class PairingHeapPQ implements MyPriorityQueue {
     }
     
     public PairNode combineSiblings( PairNode firstSibling ) {
+        
         if( firstSibling.nextSibling == null )
             return firstSibling;
         

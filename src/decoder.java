@@ -12,7 +12,7 @@ import java.util.BitSet;
  *
  * @author karthik
  */
-public class decoder {
+public class Decoder {
     
     private static String encodedString;
     private static Node root;

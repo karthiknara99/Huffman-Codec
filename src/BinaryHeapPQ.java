@@ -6,7 +6,7 @@ import java.util.ArrayList;
  */
 public class BinaryHeapPQ implements MyPriorityQueue {
     
-    private static ArrayList<Node> ar = new ArrayList<>();
+    private ArrayList<Node> ar = new ArrayList<>();
 
     public BinaryHeapPQ() {
         this.clear();
@@ -45,19 +45,19 @@ public class BinaryHeapPQ implements MyPriorityQueue {
         return ar.get(0);
     }
     
-    public static int parent( int i ) {
+    public int parent( int i ) {
         return (i-1)/2;
     }
     
-    public static int left( int i ) {
+    public int left( int i ) {
         return (2*i)+1;
     }
     
-    public static int right( int i ) {
+    public int right( int i ) {
         return (2*i)+2;
     }
     
-    public static void bubbleDown( int p ) {
+    public void bubbleDown( int p ) {
         
         int smallest;
         Node temp;
@@ -78,7 +78,7 @@ public class BinaryHeapPQ implements MyPriorityQueue {
         }
     }
     
-    protected void bubbleUp( int i ) {
+    public void bubbleUp( int i ) {
         
         int p = parent(i);
         if( i <= 0 || ( ar.get(p).freq < ar.get(i).freq ) )

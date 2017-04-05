@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author karthik
  */
-public class encoder {
+public class Encoder {
     
     private static HashMap<Integer,Integer> freq_table = new LinkedHashMap<>();
     private static HashMap<Integer,String> code_table = new LinkedHashMap<>();

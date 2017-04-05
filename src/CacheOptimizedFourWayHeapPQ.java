@@ -6,7 +6,7 @@ import java.util.ArrayList;
  */
 public class CacheOptimizedFourWayHeapPQ implements MyPriorityQueue {
 
-    private static ArrayList<Node> ar = new ArrayList<>();
+    private ArrayList<Node> ar = new ArrayList<>();
 
     public CacheOptimizedFourWayHeapPQ() {
         this.clear();
@@ -49,15 +49,15 @@ public class CacheOptimizedFourWayHeapPQ implements MyPriorityQueue {
         return ar.get(3);
     }
     
-    public static int parent( int i ) {
+    public int parent( int i ) {
         return ((i-4)/4)+3;
     }
     
-    public static int child( int i, int c ) {
+    public int child( int i, int c ) {
         return (4*(i-3))+c+3;
     }
     
-    public static void bubbleDown( int p ) {
+    public void bubbleDown( int p ) {
         
         int smallest;
         Node temp;
@@ -85,7 +85,7 @@ public class CacheOptimizedFourWayHeapPQ implements MyPriorityQueue {
         }
     }
     
-    protected void bubbleUp( int i ) {
+    public void bubbleUp( int i ) {
         
         int p = parent(i);
         if( i <= 3 || ( ar.get(p).freq < ar.get(i).freq ) )

@@ -9,6 +9,7 @@ CLASSES = \
 	BinaryHeapPQ.java \
 	CacheOptimizedFourWayHeapPQ.java \
 	PairingHeapPQ.java \
+	InbuiltPriorityQueue.java \
 	HuffmanTree.java \
 	encoder.java \
 	decoder.java 

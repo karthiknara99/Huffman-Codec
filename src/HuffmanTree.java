@@ -16,6 +16,5 @@ public class HuffmanTree {
             pq.add(newNode);
         }
         root = pq.peek();
-    }
-    
+    } 
 }
