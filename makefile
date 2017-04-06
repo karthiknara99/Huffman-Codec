@@ -4,13 +4,6 @@ JC = javac
 	$(JC) $*.java
 
 CLASSES = \
-	Node.java \
-	MyPriorityQueue.java \
-	BinaryHeapPQ.java \
-	CacheOptimizedFourWayHeapPQ.java \
-	PairingHeapPQ.java \
-	InbuiltPriorityQueue.java \
-	HuffmanTree.java \
 	encoder.java \
 	decoder.java 
 

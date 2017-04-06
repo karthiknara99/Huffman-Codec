@@ -42,7 +42,7 @@ public class decoder {
     
     public static Node buildDecodeTree( String fileName ) throws IOException {
         
-        //Read input file and generate frequency table
+        //Read code table and generate decode tree
         Node root = null, ptr = null;
         try( BufferedReader br = new BufferedReader( new FileReader( fileName ) ) )
         {
@@ -94,7 +94,6 @@ public class decoder {
     
     public static void decode( Node root, String fileName ) throws IOException {
         
-        //Write decoded file
         File f1 = new File( "decoded.txt" );
         if (f1.exists())
             f1.delete();
@@ -113,6 +112,7 @@ public class decoder {
         char c;
         Node ptr = root;
         
+		//Write decoded file
         try( PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter("decoded.txt", true) ) ) )
         {
             for( int i = 0; i < buffer.length * 8; i++ )
